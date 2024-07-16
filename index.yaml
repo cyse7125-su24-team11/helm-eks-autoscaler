@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  autoscaler:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-07-16T13:00:31.569905-04:00"
+    description: A Helm chart for Kubernetes
+    digest: 0ae91acffb6baf069b2b1ee7c3bba017cf876b02a7228ef85c5b487b9628ab1d
+    name: autoscaler
+    type: application
+    urls:
+    - autoscaler-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-07-16T13:00:31.568559-04:00"
