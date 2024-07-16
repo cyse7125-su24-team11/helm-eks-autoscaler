@@ -11,7 +11,6 @@ pipeline {
         HELM_INSTALL_DIR = "${env.HOME}/.local/bin"  // Directory to install Helm
         PATH = "${env.HELM_INSTALL_DIR}:${env.PATH}"  // Add the install directory to PATH
         HELM_VERSION = 'v3.15.1'  // Specify the desired Helm version here
-
     }
     stages {
         stage('Checkout') {
@@ -62,6 +61,38 @@ pipeline {
                     helm lint webapp/
                     helm template webapp/
                     '''
+                }
+            }
+        }
+        stage('Mirror Images') {
+            steps {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_CRED', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')])                     
+                    script {
+                        def images = [
+                            "k8s.gcr.io/autoscaler/cluster-autoscaler:v1.26.2"
+                            // Add more images and tags as needed
+                        ]
+
+                        images.each { image ->
+                            def tag = image.split(":")[1]
+                            def destImage = "${DOCKERHUB_USERNAME}/cluster-autoscaler:${tag}"
+
+                            sh """
+                            echo "Logging into DockerHub..."
+                            echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+
+                            echo "Pulling image: ${image}"
+                            docker pull ${image}
+
+                            echo "Tagging image: ${image} as ${destImage}"
+                            docker tag ${image} ${destImage}
+
+                            echo "Pushing image: ${destImage}"
+                            docker push ${destImage}
+                            """
+                        }
+                    }
                 }
             }
         }
