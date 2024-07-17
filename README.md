@@ -2,26 +2,27 @@
 
 
 
-helm repo add autoscaler 'https://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@raw.githubusercontent.com/cyse7125-su24-team11/helm-eks-autoscaler/main/'
+helm package autoscaler
+helm repo index . 
+
+cp autoscaler-0.1.0.tgz ../../Submissions/helm/ca-helm-registry 
+cp index.yaml ../../Submissions/helm/ca-helm-registry 
 
 
-helm repo add autoscaler 'https://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@www.github.com/cyse7125-su24-team11/ca-helm-registry/main/'  --debug
+git add .
+git commit -m 'feat: New chart version'
+git push
 
-helm repo add autoscaler 'https://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@www.github.com/anibahs/ca-helm-registry/main/'  --debug
 
-helm repo add autoscaler --username anibahs --password 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 'https://www.github.com/cyse7125-su24-team11/ca-helm-registry/main/' --debug
+helm repo add autoscaler-repo-main 'https://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@raw.githubusercontent.com/cyse7125-su24-team11/ca-helm-registry/main/'
 
-helm repo add autoscaler --username anibahs --password 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 'https://www.github.com/anibahs/ca-helm-registry/main/' --debug
-
-curl --fail-with-body --request POST \
-     --form 'chart=@autoscaler-0.1.0.tgz' \
-     --user anibahs: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 \
-    'https://www.github.com/cyse7125-su24-team11/ca-helm-registry/main/'
+helm repo update
 
 
 
 
-helm install autoscaler autoscaler --set caRoleArn=<caRoleArn> --set-file dockerconfigjson=/Users/shabinasingh/.docker/config.json
+
+helm install autoscaler autoscaler --set caRoleArn=arn:aws:iam::533267343403:role/eks-ca --set-file dockerconfigjson=/Users/shabinasingh/.docker/config.json
 
 
 helm uninstall autoscaler
