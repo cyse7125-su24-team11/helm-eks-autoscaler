@@ -76,7 +76,7 @@ pipeline {
 
                         images.each { image ->
                             def tag = image.split(":")[1]
-                            def destImage = "${DOCKERHUB_USERNAME}/cluster-autoscaler:${tag}"
+                            def destImage = "${DOCKERHUB_USERNAME}/csye7125:cluster-autoscaler-${tag}"
 
                             sh """
                             echo "Logging into DockerHub..."
