@@ -24,5 +24,6 @@ helm repo update
 
 helm install autoscaler autoscaler --set caRoleArn=arn:aws:iam::533267343403:role/eks-ca --set-file dockerconfigjson=/Users/shabinasingh/.docker/config.json
 
+helm install autoscaler autoscaler --set-file dockerconfigjson=/Users/shabinasingh/.docker/config.json
 
 helm uninstall autoscaler
