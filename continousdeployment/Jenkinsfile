@@ -66,8 +66,7 @@ pipeline {
         }
         stage('Mirror Images') {
             steps {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DOCKER_CRED', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')])                     
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_CRED', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')])   {                  
                     script {
                         def images = [
                             "k8s.gcr.io/autoscaler/cluster-autoscaler:v1.26.2"
