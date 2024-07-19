@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-namespace: eks-ca
+eksNamespace: eks-ca
 autoscaler_name: cluster-autoscaler
 replicaCount: 1
 dockerconfigjson: "{}"

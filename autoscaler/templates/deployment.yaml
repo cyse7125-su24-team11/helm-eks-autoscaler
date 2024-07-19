@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.autoscaler_name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.eksNamespace }}
   labels:
     app: {{ .Values.autoscaler_name }}
 spec:
@@ -50,7 +50,7 @@ spec:
             - --expander=least-waste
             - --aws-use-static-instance-list=true
             - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/cve-eks
-            - --nodes=3:6:eks-asg
+            - --nodes=3:6:asg
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt # /etc/ssl/certs/ca-bundle.crt for Amazon Linux Worker Nodes
