@@ -5,11 +5,11 @@
 namespace: eks-ca
 autoscaler_name: cluster-autoscaler
 replicaCount: 1
+dockerconfigjson: "{}"
 
 image:
-  name: registry.k8s.io/autoscaling/cluster-autoscaler:v1.26.2
-  repository: nginx
-  pullPolicy: IfNotPresent
+  name: maheshpoojaryneu/csye7125:cluster-autoscaler-v1.26.2
+  pullPolicy: "Always"
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
