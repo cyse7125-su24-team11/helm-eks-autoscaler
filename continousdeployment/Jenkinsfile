@@ -58,8 +58,8 @@ pipeline {
             steps {
                 script {
                     sh  '''
-                    helm lint webapp/
-                    helm template webapp/
+                    helm lint autoscaler/
+                    helm template autoscaler/
                     '''
                 }
             }
@@ -113,10 +113,10 @@ pipeline {
     
     
                                 sh """
-                                    sed -i 's/version:.*/version: ${newVersion}/' ./webapp/Chart.yaml
+                                    sed -i 's/version:.*/version: ${newVersion}/' ./autoscaler/Chart.yaml
                                     
-                                    #chmod -R 755 ./webapp/
-                                    helm package --version ${newVersion} ./webapp/
+                                    #chmod -R 755 ./autoscaler/
+                                    helm package --version ${newVersion} ./autoscaler/
                                     gh release create 'v${newVersion}' *${newVersion}.tgz
                                     
                                 """

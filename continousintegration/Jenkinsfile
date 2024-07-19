@@ -57,7 +57,7 @@ pipeline {
                         pwd
                         ls -lart
                     '''
-                    def templateResult = sh(script: 'helm lint webapp/', returnStatus: true)
+                    def templateResult = sh(script: 'helm lint autoscaler/', returnStatus: true)
                     if (templateResult != 0) {
                         currentBuild.result = 'FAILURE'
                         error('Helm template failed')
@@ -68,7 +68,7 @@ pipeline {
         stage('Helm Template') {
             steps {
                 script {
-                    def templateResult = sh(script: 'helm template webapp/', returnStatus: true)
+                    def templateResult = sh(script: 'helm template autoscaler/', returnStatus: true)
                     if (templateResult != 0) {
                         currentBuild.result = 'FAILURE'
                         error('Helm template failed')
