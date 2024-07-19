@@ -69,7 +69,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'DOCKER_CRED', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')])   {                  
                     script {
                         def images = [
-                            "k8s.gcr.io/autoscaler/cluster-autoscaler:v1.26.2"
+                            "registry.k8s.io/autoscaling/cluster-autoscaler:v1.26.2"
                             // Add more images and tags as needed
                         ]
 
