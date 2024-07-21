@@ -5,16 +5,17 @@
 eksNamespace: eks-ca
 autoscaler_name: cluster-autoscaler
 replicaCount: 1
-dockerconfigjson: "{}"
+# dockerconfigjson: "{}"
 
 image:
-  # name: maheshpoojaryneu/csye7125:cluster-autoscaler-v1.26.2
-  name: registry.k8s.io/autoscaling/cluster-autoscaler:v1.26.2
+  name: maheshpoojaryneu/csye7125:cluster-autoscaler-v1
+  # name: registry.k8s.io/autoscaling/cluster-autoscaler:v1.26.2
   pullPolicy: "Always"
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-imagePullSecrets: []
+imagePullSecrets: 
+  - name: regcred
 nameOverride: ""
 fullnameOverride: ""
 caRoleArn: ""
