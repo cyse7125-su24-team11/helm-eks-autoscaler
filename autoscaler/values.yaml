@@ -5,7 +5,7 @@
 eksNamespace: eks-ca
 autoscaler_name: cluster-autoscaler
 replicaCount: 1
-# dockerconfigjson: "{}"
+dockerconfigjson: "{}"
 
 image:
   name: maheshpoojaryneu/csye7125:cluster-autoscaler-v1
