@@ -83,7 +83,7 @@ pipeline {
                             docker run --privileged --rm tonistiigi/binfmt --install all
 
                             echo "Build multiplatform docker image"                        
-                            docker buildx build -f ./Dockerfile.app -t ${destImage} --platform "linux/arm64,linux/amd64" .
+                            docker buildx build -f ./Dockerfile -t ${destImage} --platform "linux/arm64,linux/amd64" .
 
                             echo "Pushing new image: ${destImage}"
                             docker push ${destImage}
