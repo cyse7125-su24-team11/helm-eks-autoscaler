@@ -17,7 +17,7 @@ spec:
         app: {{ .Values.autoscaler_name }}
         app.kubernetes.io/managed-by: Helm
         meta.helm.sh/release-name: autoscaler
-        meta.helm.sh/release-namespace: deafult
+        meta.helm.sh/release-namespace: default
       annotations:
         # prometheus.io/scrape: 'true'
         # prometheus.io/port: '8085'
