@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.autoscaler_name }}
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Values.eksNamespace }}
   labels:
     app: {{ .Values.autoscaler_name }}
 spec:
@@ -16,8 +16,8 @@ spec:
       labels:
         app: {{ .Values.autoscaler_name }}
         app.kubernetes.io/managed-by: Helm
-        meta.helm.sh/release-name: eks-autoscaler
-        meta.helm.sh/release-namespace: {{ .Values.namespace }}
+        meta.helm.sh/release-name: autoscaler
+        meta.helm.sh/release-namespace: default
       annotations:
         # prometheus.io/scrape: 'true'
         # prometheus.io/port: '8085'
@@ -54,13 +54,15 @@ spec:
             - name: ssl-certs
               mountPath: /etc/ssl/certs/ca-certificates.crt # /etc/ssl/certs/ca-bundle.crt for Amazon Linux Worker Nodes
               readOnly: true
-          imagePullPolicy: "Always"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+      imagePullSecrets:
+      - name: regcred
       volumes:
         - name: ssl-certs
           hostPath:

@@ -80,14 +80,12 @@ pipeline {
                             sh """
                             echo "Logging into DockerHub..."
                             echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+                            docker run --privileged --rm tonistiigi/binfmt --install all
 
-                            echo "Pulling image: ${image}"
-                            docker pull ${image}
+                            echo "Build multiplatform docker image"                        
+                            docker buildx build -f ./Dockerfile -t ${destImage} --platform "linux/arm64,linux/amd64" .
 
-                            echo "Tagging image: ${image} as ${destImage}"
-                            docker tag ${image} ${destImage}
-
-                            echo "Pushing image: ${destImage}"
+                            echo "Pushing new image: ${destImage}"
                             docker push ${destImage}
                             """
                         }
